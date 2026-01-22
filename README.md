@@ -1,6 +1,3 @@
-[README.md](https://github.com/user-attachments/files/24790718/README.md)
-Balik-Wika: An Interactive Web Platform with Machine Learning to Assess and Improve Filipino Language Skills and Cultural Awareness Among the Youth of Hilltop, Bagong Ilog Community
-
 **Capstone Project | BS Information Technology**
 
 ## 📌 Project Overview
