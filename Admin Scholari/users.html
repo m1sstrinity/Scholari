@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Users</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    /* Additional styles specific to users page */
+
+    main h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .controls select,
+    .controls input,
+    .controls button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .controls select:hover,
+    .controls input:hover,
+    .controls button:hover {
+      border-color: #5271ff;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 5px #ddd;
+    }
+
+    thead {
+      background: #5271ff;
+      color: white;
+      text-align: left;
+    }
+
+    thead th {
+      padding: 12px 15px;
+    }
+
+    tbody tr:hover {
+      background: #f5faff;
+    }
+
+    tbody td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .active {
+      color: #2a8f2a;
+      font-weight: 600;
+    }
+
+    tbody td button {
+      margin-right: 6px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      background: #5271ff;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    tbody td button:last-child {
+      background: #ff4d4d;
+    }
+
+    tbody td button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="logo">
+      <img src="sclogo.png" alt="Scholari Logo" />
+    </div>
+    <a href="dashboard.html"><button>📊 Dashboard</button></a>
+    <a href="deptlist.html"><button>📋 Department List</button></a>
+    <a href="users.html"><button class="active">👥 Users</button></a>
+    <a href="projtask.html"><button>🗓️ Project & Task</button></a>
+    <a href="settings.html"><button>⚙️ System Settings</button></a>
+    <a href="logout.html"><button>🚪 Log out</button></a>
+  </aside>
+
+  <main>
+    <h2>Users</h2>
+    <div class="controls">
+      <select>
+        <option>By Role</option>
+      </select>
+      <input type="text" placeholder="Type to Search" />
+      <button>Add user</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Department</th>
+          <th>Status</th>
+          <th>Last Login</th>
+          <th>Classes Joined</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>Student</td>
+          <td>CCS</td>
+          <td class="active">Active</td>
+          <td>12/12/12</td>
+          <td>Classes</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </main>
+</body>
+</html>

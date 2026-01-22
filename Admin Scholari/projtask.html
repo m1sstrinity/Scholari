@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project and Tasks</title>
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <style>
+    main h2 {
+      margin-bottom: 20px;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .controls select {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .controls select:hover {
+      border-color: #5271ff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 5px #ddd;
+    }
+
+    thead {
+      background: #5271ff;
+      color: white;
+      text-align: left;
+    }
+
+    thead th {
+      padding: 12px 15px;
+    }
+
+    tbody tr:hover {
+      background: #f5faff;
+    }
+
+    tbody td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .status-ongoing {
+      color: #b37b00;
+      font-weight: 600;
+    }
+
+    .status-accomplished {
+      color: #2a8f2a;
+      font-weight: 600;
+    }
+
+    tbody td button {
+      margin-right: 6px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      background: #5271ff;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    tbody td button:last-child {
+      background: #ff4d4d;
+    }
+
+    tbody td button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <aside>
+    <div class="logo">
+      <img src="sclogo.png" alt="Scholari Logo" />
+    </div>
+    <a href="dashboard.html"><button>📊 Dashboard</button></a>
+    <a href="deptlist.html"><button>📋 Department List</button></a>
+    <a href="users.html"><button>👥 Users</button></a>
+    <a href="projtask.html"><button class="active">🗓️ Project & Task</button></a>
+    <a href="settings.html"><button>⚙️ System Settings</button></a>
+    <a href="logout.html"><button>🚪 Log out</button></a>
+  </aside>
+
+  <main>
+    <h2>Project and Tasks</h2>
+
+    <div class="controls">
+      <select id="statusFilter">
+        <option value="all">All Statuses</option>
+        <option value="Ongoing">Ongoing</option>
+        <option value="Accomplished">Accomplished</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Department</th>
+          <th>Project/Task</th>
+          <th>Assignee</th>
+          <th>Adviser</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody id="projectTable">
+        <tr data-status="Ongoing">
+          <td>Capstone Project Alpha</td>
+          <td class="status-ongoing">Ongoing</td>
+          <td>CCS</td>
+          <td>Development Phase</td>
+          <td>Jane Doe</td>
+          <td>Prof. Smith</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+        <tr data-status="Accomplished">
+          <td>Marketing Campaign Q1</td>
+          <td class="status-accomplished">Accomplished</td>
+          <td>Business</td>
+          <td>Report Submission</td>
+          <td>John Roe</td>
+          <td>Dr. Clark</td>
+          <td>
+            <button>Edit</button>
+            <button>Delete</button>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    // Filter logic for status
+    document.getElementById("statusFilter").addEventListener("change", function () {
+      const selected = this.value;
+      const rows = document.querySelectorAll("#projectTable tr");
+
+      rows.forEach(row => {
+        const status = row.getAttribute("data-status");
+        row.style.display = selected === "all" || selected === status ? "" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="projtask.xsl"?>
+<projects>
+  <project>
+    <name>Capstone Project Alpha</name>
+    <status>Ongoing</status>
+    <department>CCS</department>
+    <task>Design UI</task>
+    <assignee>Jane Doe</assignee>
+    <adviser>Prof. Smith</adviser>
+  </project>
+  <project>
+    <name>Business Plan Beta</name>
+    <status>Accomplished</status>
+    <department>Business</department>
+    <task>Final Report</task>
+    <assignee>John Roe</assignee>
+    <adviser>Dr. Clark</adviser>
+  </project>
+</projects>

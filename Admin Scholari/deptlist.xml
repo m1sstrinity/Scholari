@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="deptlist.xsl"?>
+
+<departments>
+  <department id="CCS">
+    <name>College of Computer Science</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="CON">
+    <name>College of Nursing</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="CoED">
+    <name>College of Education</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="CBA">
+    <name>College of Business Accountancy</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="CIHM">
+    <name>College of International Hotel Management</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="CAS">
+    <name>College of Arts and Sciences</name>
+    <userCount>10467</userCount>
+  </department>
+  <department id="COE">
+    <name>College of Engineering</name>
+    <userCount>10467</userCount>
+  </department>
+</departments>

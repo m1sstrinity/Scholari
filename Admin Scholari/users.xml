@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="users.xsl"?>
+<users>
+  <user>
+    <name>Trinity Rosales</name>
+    <role>Student</role>
+    <department>CCS</department>
+    <status>Active</status>
+    <lastLogin>2025-05-01</lastLogin>
+    <classes>Intro to HCI, Information Assurance Security, Multimedia, Professional Ethics</classes>
+  </user>
+  <user>
+    <name>John Smith</name>
+    <role>Faculty</role>
+    <department>Business</department>
+    <status>Inactive</status>
+    <lastLogin>2025-03-15</lastLogin>
+    <classes>Marketing 101</classes>
+  </user>
+  <user>
+    <name>John Smith</name>
+    <role>Faculty</role>
+    <department>Business</department>
+    <status>Inactive</status>
+    <lastLogin>2025-03-15</lastLogin>
+    <classes>Marketing 101</classes>
+  </user>
+</users>
