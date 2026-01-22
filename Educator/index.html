@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      text-align: left;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+    .user-role {
+      font-size: 12px;
+      color: gray;
+      line-height: 1;
+    }
+    .color-options {
+      margin: 10px 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .color-choice {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .color-choice.selected {
+      border-color: #333;
+    }
+    .color-red { background-color: #f28b82; }
+    .color-green { background-color: #81c995; }
+    .color-blue { background-color: #a8c1f8; }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <img src="sclogo.png" alt="Logo" class="logo" />
+
+  <div class="user-dropdown">
+    <button class="user-btn">
+      <img src="profile.png" alt="User Image" class="user-image" />
+      <div class="user-info">
+        <div class="user-name">Juan</div>
+        <div class="user-role">Educator</div>
+      </div>
+      <span class="arrow">▼</span>
+    </button>
+
+    <div class="dropdown-content">
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
+    </div>
+  </div>
+
+  <div class="menu-links">
+    <a href="index.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a href="students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="taskassigned.php"><i class="fas fa-tasks"></i> Tasks Assigned</a>
+    <a href="archivedclasses.html"><i class="fas fa-archive"></i> Archived Classes</a>
+    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</div>
+
+<div class="content">
+  <h1>Dashboard</h1>
+  <hr style="margin: 10px 0 20px; border: 1px solid #ccc;" />
+
+  <div class="class-grid">
+    <div class="class-card" data-id="Math 101" style="background-color: #fff;">
+      <div class="card-header">
+        <h3>Math 101</h3>
+        <button class="edit-icon-btn" title="Edit Subject" type="button"><i class="fas fa-pencil-alt"></i></button>
+      </div>
+      <p class="section-text">Section</p>
+      <hr />
+      <div class="card-footer">
+        <button class="archive-icon-btn"><i class="fas fa-box-archive"></i></button>
+      </div>
+    </div>
+
+    <div class="class-card" data-id="Science 201" style="background-color: #fff;">
+      <div class="card-header">
+        <h3>Science 201</h3>
+        <button class="edit-icon-btn" title="Edit Subject" type="button"><i class="fas fa-pencil-alt"></i></button>
+      </div>
+      <p class="section-text">Section</p>
+      <hr />
+      <div class="card-footer">
+        <button class="archive-icon-btn"><i class="fas fa-box-archive"></i></button>
+      </div>
+    </div>
+
+    <div class="class-card" data-id="English 301" style="background-color: #fff;">
+      <div class="card-header">
+        <h3>English 301</h3>
+        <button class="edit-icon-btn" title="Edit Subject" type="button"><i class="fas fa-pencil-alt"></i></button>
+      </div>
+      <p class="section-text">Section</p>
+      <hr />
+      <div class="card-footer">
+        <button class="archive-icon-btn"><i class="fas fa-box-archive"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h2>Edit Class</h2>
+    <p id="className">Class: </p>
+    <input type="text" id="editInput" placeholder="Edit class name" />
+    <input type="text" id="sectionInput" placeholder="Edit section name" style="margin-top: 10px;" />
+    <p>Pick background color:</p>
+    <div class="color-options">
+      <div class="color-choice color-red" data-color="#f28b82" title="Red"></div>
+      <div class="color-choice color-green" data-color="#81c995" title="Green"></div>
+      <div class="color-choice color-blue" data-color="#a8c1f8" title="Blue"></div>
+    </div>
+    <div class="modal-buttons">
+      <button id="saveEdit">Save</button>
+      <button id="cancelEdit">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to logout?</p>
+    <div class="modal-buttons">
+      <button id="confirmLogout">Yes</button>
+      <button id="cancelLogout">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('logoutBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  document.getElementById('logoutModal').style.display = 'flex';
+});
+document.getElementById('confirmLogout').addEventListener('click', function() {
+  alert("Logging out...");
+});
+document.getElementById('cancelLogout').addEventListener('click', function() {
+  document.getElementById('logoutModal').style.display = 'none';
+});
+window.addEventListener('click', function(e) {
+  if (e.target == document.getElementById('logoutModal')) {
+    document.getElementById('logoutModal').style.display = 'none';
+  }
+});
+
+// Edit modal
+const editModal = document.getElementById('editModal');
+const editInput = document.getElementById('editInput');
+const classNameText = document.getElementById('className');
+const sectionInput = document.getElementById('sectionInput');
+const saveEditBtn = document.getElementById('saveEdit');
+const cancelEditBtn = document.getElementById('cancelEdit');
+const colorChoices = document.querySelectorAll('.color-choice');
+let selectedColor = null;
+let currentCard = null;
+
+document.querySelectorAll('.edit-icon-btn').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent triggering card click
+    currentCard = button.closest('.class-card');
+    const classTitle = currentCard.querySelector('h3').textContent;
+    const sectionText = currentCard.querySelector('.section-text').textContent;
+    classNameText.textContent = `Class: ${classTitle}`;
+    editInput.value = classTitle;
+    sectionInput.value = sectionText;
+    selectedColor = null;
+    colorChoices.forEach(c => c.classList.remove('selected'));
+    editModal.style.display = 'flex';
+  });
+});
+
+colorChoices.forEach(choice => {
+  choice.addEventListener('click', () => {
+    colorChoices.forEach(c => c.classList.remove('selected'));
+    choice.classList.add('selected');
+    selectedColor = choice.getAttribute('data-color');
+  });
+});
+
+cancelEditBtn.addEventListener('click', () => {
+  editModal.style.display = 'none';
+});
+
+saveEditBtn.addEventListener('click', () => {
+  const newName = editInput.value.trim();
+  const newSection = sectionInput.value.trim();
+
+  if (!newName || !newSection) {
+    alert('Please enter both class name and section.');
+    return;
+  }
+
+  const originalId = currentCard.getAttribute('data-id');
+  currentCard.querySelector('h3').textContent = newName;
+  currentCard.querySelector('.section-text').textContent = newSection;
+
+  if (selectedColor) {
+    currentCard.style.backgroundColor = selectedColor;
+  }
+
+  let saved = JSON.parse(localStorage.getItem('classes')) || {};
+  saved[originalId] = {
+    name: newName,
+    section: newSection,
+    color: selectedColor || currentCard.style.backgroundColor
+  };
+  localStorage.setItem('classes', JSON.stringify(saved));
+
+  editModal.style.display = 'none';
+});
+
+// Load saved data
+window.addEventListener('DOMContentLoaded', () => {
+  let saved = JSON.parse(localStorage.getItem('classes')) || {};
+  document.querySelectorAll('.class-card').forEach(card => {
+    const originalId = card.getAttribute('data-id');
+    if (saved[originalId]) {
+      card.querySelector('h3').textContent = saved[originalId].name;
+      card.querySelector('.section-text').textContent = saved[originalId].section || 'Section';
+      card.style.backgroundColor = saved[originalId].color;
+    }
+  });
+
+  // Load saved profile picture here:
+  const savedPic = localStorage.getItem("profilePic");
+  if (savedPic) {
+    const userImage = document.querySelector(".user-image");
+    if (userImage) {
+      userImage.src = savedPic;
+    }
+  }
+});
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+  if (e.target === editModal) {
+    editModal.style.display = 'none';
+  }
+});
+
+// Archive button functionality
+document.querySelectorAll('.archive-icon-btn').forEach(button => {
+  button.addEventListener('click', (e) => {
+    e.stopPropagation(); // prevent triggering card click
+    const card = button.closest('.class-card');
+    const id = card.getAttribute('data-id');
+    const name = card.querySelector('h3').textContent;
+    const section = card.querySelector('.section-text').textContent;
+    const color = card.style.backgroundColor;
+
+    let archived = JSON.parse(localStorage.getItem('archivedClasses')) || {};
+    let active = JSON.parse(localStorage.getItem('classes')) || {};
+
+    if (button.title !== 'Unarchive Class') {
+      // Archive the class
+      archived[id] = { name, section, color };
+      delete active[id];
+      button.title = 'Unarchive Class';
+      button.innerHTML = '<i class="fas fa-box-open"></i>';
+      card.style.display = 'none';
+    } else {
+      // Unarchive the class
+      active[id] = { name, section, color };
+      delete archived[id];
+      button.title = 'Archive Class';
+      button.innerHTML = '<i class="fas fa-box-archive"></i>';
+      card.style.display = 'block';
+    }
+
+    localStorage.setItem('archivedClasses', JSON.stringify(archived));
+    localStorage.setItem('classes', JSON.stringify(active));
+  });
+});
+
+// Make entire class-card clickable to open class.php
+document.querySelectorAll('.class-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const className = card.getAttribute('data-id');
+    window.location.href = `class.php?class=${encodeURIComponent(className)}`;
+  });
+});
+</script>
+
+</body>
+</html>

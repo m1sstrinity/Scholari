@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      text-align: left;
+    }
+
+    .user-name {
+      font-weight: bold;
+    }
+
+    .user-role {
+      font-size: 12px;
+      color: gray;
+      line-height: 1;
+    }
+    .profile-pic-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 40px;
+      margin-left: 30px;
+      gap: 30px;
+    }
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #5409da;
+    }
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-info h2 {
+      margin: 0;
+    }
+    .profile-info p {
+      margin: 5px 0 15px;
+      color: #666;
+    }
+    .profile-info button {
+      margin-right: 10px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .change-btn {
+      background-color: #5409da;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #e74c3c;
+      color: white;
+    }
+    .delete-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    .edit-profile-form {
+      margin: 30px;
+    }
+    .edit-profile-form label {
+      font-weight: bold;
+    }
+    .edit-profile-form input,
+    .edit-profile-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .edit-profile-form button[type="submit"] {
+      padding: 10px 20px;
+      background-color: #5409da;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      text-align: center;
+    }
+    .modal-buttons button {
+      margin: 10px 15px 0 15px;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #confirmLogout {
+      background-color: #5409da;
+      color: white;
+    }
+    #cancelLogout {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <img src="sclogo.png" alt="Logo" class="logo" />
+    <div class="user-dropdown">
+      <button class="user-btn">
+        <!-- Updated to use dynamic user-image -->
+        <img src="profile.png" alt="User Image" class="user-image" />
+        <div class="user-info">
+          <div class="user-name">Juan</div>
+          <div class="user-role">Educator</div>
+        </div>
+        <span class="arrow">▼</span>
+      </button>
+      <div class="dropdown-content">
+        <a href="profile.html">Profile</a>
+        <a href="settings.html">Settings</a>
+      </div>
+    </div>
+    <div class="menu-links">
+      <a href="index.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+      <a href="students.php"><i class="fas fa-user-graduate"></i> Students</a>
+      <a href="taskassigned.php"><i class="fas fa-tasks"></i> Tasks Assigned</a>
+      <a href="archivedclasses.html"><i class="fas fa-archive"></i> Archived Classes</a>
+      <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </div>
+
+  <div class="content">
+    <h1>Profile</h1>
+    <hr style="margin: 10px 0 20px; border: 1px solid #ccc" />
+
+    <div class="profile-pic-wrapper">
+      <img src="profile.png" alt="Profile" class="profile-pic" />
+      <div class="profile-info">
+        <h2>Juan Dela Cruz</h2>
+        <p>3rd year BSIT student passionate about tech and building awesome web projects.</p>
+        <div>
+          <button class="change-btn" id="changeProfileBtn">Change Profile Picture</button>
+          <button class="delete-btn">Delete Profile</button>
+          <!-- Hidden file input -->
+          <input
+            type="file"
+            id="profilePicInput"
+            accept="image/*"
+            style="display: none"
+          />
+        </div>
+      </div>
+    </div>
+
+    <form action="update_profile.php" method="POST" class="edit-profile-form" onsubmit="saveProfile(event)">
+      <div style="display: flex; gap: 20px">
+        <div style="flex: 1">
+          <label>First Name</label>
+          <input type="text" name="first_name" value="Juan" />
+        </div>
+        <div style="flex: 1">
+          <label>Last Name</label>
+          <input type="text" name="last_name" value="Dela Cruz" />
+        </div>
+      </div>
+
+      <label>Email</label>
+      <input
+        type="email"
+        name="email"
+        value="delacruz_juan@plppasig.edu.ph"
+      />
+
+      <label>Bio</label>
+      <textarea name="bio" rows="4"
+        >3rd year BSIT student passionate about tech and building awesome web
+        projects.</textarea
+      >
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <p>Are you sure you want to logout?</p>
+      <div class="modal-buttons">
+        <button id="confirmLogout">Yes</button>
+        <button id="cancelLogout">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Logout modal controls
+    document.getElementById("logoutBtn").addEventListener("click", function (e) {
+      e.preventDefault();
+      document.getElementById("logoutModal").style.display = "flex";
+    });
+
+    document
+      .getElementById("confirmLogout")
+      .addEventListener("click", function () {
+        alert("Logging out...");
+      });
+
+    document
+      .getElementById("cancelLogout")
+      .addEventListener("click", function () {
+        document.getElementById("logoutModal").style.display = "none";
+      });
+
+    window.addEventListener("click", function (e) {
+      if (e.target == document.getElementById("logoutModal")) {
+        document.getElementById("logoutModal").style.display = "none";
+      }
+    });
+
+    // Elements for profile
+    const firstNameInput = document.querySelector('input[name="first_name"]');
+    const lastNameInput = document.querySelector('input[name="last_name"]');
+    const bioTextarea = document.querySelector('textarea[name="bio"]');
+    const nameHeading = document.querySelector(".profile-info h2");
+    const bioParagraph = document.querySelector(".profile-info p");
+    const profilePicWrapper = document.querySelector(".profile-pic-wrapper");
+    let profilePic = document.querySelector(".profile-pic");
+    const profilePicInput = document.getElementById("profilePicInput");
+    const changeProfileBtn = document.getElementById("changeProfileBtn");
+
+    // Sidebar user image
+    const sidebarUserImage = document.querySelector(".user-image");
+
+    // Load saved data from localStorage on page load
+    window.addEventListener("load", () => {
+      const savedFirstName = localStorage.getItem("firstName");
+      const savedLastName = localStorage.getItem("lastName");
+      if (savedFirstName) firstNameInput.value = savedFirstName;
+      if (savedLastName) lastNameInput.value = savedLastName;
+      nameHeading.textContent = (savedFirstName || "Juan") + " " + (savedLastName || "Dela Cruz");
+
+      const savedBio = localStorage.getItem("bio");
+      if (savedBio) {
+        bioTextarea.value = savedBio;
+        bioParagraph.textContent = savedBio;
+      }
+
+      const savedPic = localStorage.getItem("profilePic");
+      if (savedPic) {
+        profilePic.src = savedPic;
+        sidebarUserImage.src = savedPic; // update sidebar image as well
+      }
+    });
+
+    // Update name and save on input
+    function updateName() {
+      const fullName = firstNameInput.value + " " + lastNameInput.value;
+      nameHeading.textContent = fullName;
+      localStorage.setItem("firstName", firstNameInput.value);
+      localStorage.setItem("lastName", lastNameInput.value);
+    }
+
+    // Update bio and save on input
+    function updateBio() {
+      bioParagraph.textContent = bioTextarea.value;
+      localStorage.setItem("bio", bioTextarea.value);
+    }
+
+    firstNameInput.addEventListener("input", updateName);
+    lastNameInput.addEventListener("input", updateName);
+    bioTextarea.addEventListener("input", updateBio);
+
+    // Change profile picture button
+    changeProfileBtn.addEventListener("click", () => {
+      profilePicInput.click();
+    });
+
+    profilePicInput.addEventListener("change", () => {
+      const file = profilePicInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          profilePic.src = e.target.result;
+          sidebarUserImage.src = e.target.result; // update sidebar image here too
+          localStorage.setItem("profilePic", e.target.result);
+
+          // Enable delete button in case it was disabled
+          document.querySelector(".delete-btn").disabled = false;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Delete profile picture button functionality
+    document.querySelector(".delete-btn").addEventListener("click", () => {
+      const oldPic = profilePicWrapper.querySelector(".profile-pic");
+      if (oldPic) {
+        const img = document.createElement("img");
+        img.src = "silhouette.png"; // Make sure this file exists in your folder
+        img.alt = "Silhouette Profile Picture";
+        img.classList.add("profile-pic");
+
+        // Replace old picture with silhouette
+        profilePicWrapper.replaceChild(img, oldPic);
+
+        // Update profilePic variable to the new image element
+        profilePic = profilePicWrapper.querySelector(".profile-pic");
+
+        // Update sidebar user image too
+        sidebarUserImage.src = "silhouette.png";
+
+        // Remove stored picture
+        localStorage.removeItem("profilePic");
+
+        // Disable delete button
+        document.querySelector(".delete-btn").disabled = true;
+
+        alert("Profile picture is deleted.");
+      }
+    });
+
+    // Save form on submit to localStorage and prevent default form action for demo
+    function saveProfile(event) {
+      event.preventDefault();
+      // Values already saved on input, just alert success here
+      alert("Profile saved!");
+    }
+  </script>
+</body>
+</html>

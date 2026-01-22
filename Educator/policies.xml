@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Policies>
+  <PrivacyPolicy>
+    <Paragraph>
+      Scholari values your privacy and is committed to protecting any personal information you provide. When you use Scholari, we may collect basic details like your name, email, and role (such as student or educator), along with any class, project, or task information you submit. This information is used only to manage and improve your experience within the system. We also collect data like login times or general usage to help keep your account secure and understand how the system is used. Your data is stored safely and is never shared with third parties unless required by law. You have the right to request access to your data, ask for corrections, or delete your account at any time.
+    </Paragraph>
+  </PrivacyPolicy>
+
+  <TermsOfService>
+    <Paragraph>
+      By using Scholari, you agree to follow the rules of this system. You must provide accurate information and only use Scholari for school-related or educational purposes. You are responsible for keeping your account safe and for anything done under your login. Do not try to hack the system, upload harmful content, or use Scholari in any way that could harm others or the platform. We may make updates to these terms over time, and any changes will be posted for you to read.
+    </Paragraph>
+  </TermsOfService>
+</Policies>

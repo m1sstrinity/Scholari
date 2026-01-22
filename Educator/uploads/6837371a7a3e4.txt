@@ -1,0 +1,137 @@
+classestb - enrolled classes
+
+submissionstb - Submissions
+educatorstb - educator info
+
+
+1. users_db
+Holds all user-related data.
+
+Tables:
+
+users
+
+user_id
+
+first_name
+
+middle_name
+
+last_name
+
+email
+
+role (e.g., Student, Educator)
+
+department_id (FK to departments)
+
+profile_picture
+
+password_hash
+
+created_at, updated_at
+
+2. departments_db
+Stores information about colleges or departments.
+
+Tables:
+
+departments
+
+department_id
+
+department_name
+
+abbreviation (optional)
+
+user_count (denormalized or derived through query)
+
+3. projects_tasks_db
+Handles records of both projects and tasks.
+
+Tables:
+
+projects_tasks
+
+id
+
+name
+
+assign_type (enum: 'Project', 'Task')
+
+assignee
+
+adviser
+
+status (e.g., Ongoing, Accomplished)
+
+department_id (FK to departments)
+
+created_at, updated_at
+
+4. analytics_db
+Used for visualizing dashboard metrics.
+
+Tables:
+
+daily_usage_logs
+
+log_id
+
+date
+
+usage_count
+
+user_id (optional)
+
+login_logs
+
+log_id
+
+user_id
+
+timestamp
+
+active_projects_view (view or summary query)
+
+Returns ongoing project/task counts.
+
+total_users_view (view or summary query)
+
+Returns total number of registered users.
+
+5. admin_profile_db
+Covers admin details and settings.
+
+Tables:
+
+admin
+
+admin_id
+
+name
+
+email
+
+password_hash
+
+profile_picture
+
+6. otp_verification_db
+Used in password reset and security processes.
+
+Tables:
+
+otp_requests
+
+otp_id
+
+user_email
+
+otp_code
+
+created_at
+
+expires_at
+
+is_verified

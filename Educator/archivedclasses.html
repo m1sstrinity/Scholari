@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Archived Classes</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .user-info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      text-align: left;
+    }
+    .user-name {
+      font-weight: bold;
+    }
+    .user-role {
+      font-size: 12px;
+      color: gray;
+      line-height: 1;
+    }
+    .class-card {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px;
+      width: 200px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .class-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .card-footer button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #007BFF;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <img src="sclogo.png" alt="Logo" class="logo" />
+
+  <div class="user-dropdown">
+    <button class="user-btn">
+      <img src="profile.png" alt="User Image" class="user-image" />
+      <div class="user-info">
+        <div class="user-name">Juan</div>
+        <div class="user-role">Educator</div>
+      </div>
+      <span class="arrow">▼</span>
+    </button>
+    <div class="dropdown-content">
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
+    </div>
+  </div>
+
+  <div class="menu-links">
+    <a href="index.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a href="students.php"><i class="fas fa-user-graduate"></i> Students</a>
+    <a href="taskassigned.php"><i class="fas fa-tasks"></i> Tasks Assigned</a>
+    <a href="archivedclasses.html" class="active"><i class="fas fa-archive"></i> Archived Classes</a>
+    <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</div>
+
+<div class="content">
+  <h1>Archived Classes</h1>
+  <hr style="margin: 10px 0 20px; border: 1px solid #ccc;" />
+  <div class="class-grid" id="archivedClassesContainer">
+    <!-- Archived classes will be displayed here -->
+  </div>
+</div>
+
+<!-- Logout Modal -->
+<div id="logoutModal" class="modal">
+  <div class="modal-content">
+    <p>Are you sure you want to logout?</p>
+    <div class="modal-buttons">
+      <button id="confirmLogout">Yes</button>
+      <button id="cancelLogout">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const archivedContainer = document.getElementById('archivedClassesContainer');
+
+  // Load archived classes from localStorage and display
+  function loadArchivedClasses() {
+    archivedContainer.innerHTML = ''; // clear
+
+    let archived = JSON.parse(localStorage.getItem('archivedClasses')) || {};
+
+    if (Object.keys(archived).length === 0) {
+      archivedContainer.innerHTML = '<p>No archived classes yet.</p>';
+      return;
+    }
+
+    Object.entries(archived).forEach(([id, cls]) => {
+      const card = document.createElement('div');
+      card.classList.add('class-card');
+      card.style.backgroundColor = cls.color || '#fff';
+
+      card.innerHTML = `
+        <div>
+          <h3>${cls.name}</h3>
+          <p>${cls.section}</p>
+        </div>
+        <div class="card-footer">
+          <button class="unarchive-btn" title="Unarchive">
+            <i class="fas fa-box-open"></i>
+          </button>
+        </div>
+      `;
+
+      // Unarchive button handler
+      card.querySelector('.unarchive-btn').addEventListener('click', () => {
+        unarchiveClass(id);
+      });
+
+      archivedContainer.appendChild(card);
+    });
+  }
+
+  // Remove class from archived and add back to dashboard storage
+  function unarchiveClass(id) {
+    let archived = JSON.parse(localStorage.getItem('archivedClasses')) || {};
+    let classes = JSON.parse(localStorage.getItem('classes')) || {};
+
+    if (!archived[id]) return;
+
+    // Add back to dashboard classes
+    classes[id] = archived[id];
+
+    // Remove from archived
+    delete archived[id];
+
+    localStorage.setItem('archivedClasses', JSON.stringify(archived));
+    localStorage.setItem('classes', JSON.stringify(classes));
+
+    // Refresh the list
+    loadArchivedClasses();
+  }
+
+  // Logout modal code
+  document.getElementById('logoutBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('logoutModal').style.display = 'flex';
+  });
+
+  document.getElementById('confirmLogout').addEventListener('click', function() {
+    alert("Logging out...");
+  });
+
+  document.getElementById('cancelLogout').addEventListener('click', function() {
+    document.getElementById('logoutModal').style.display = 'none';
+  });
+
+  window.addEventListener('click', function(e) {
+    if (e.target == document.getElementById('logoutModal')) {
+      document.getElementById('logoutModal').style.display = 'none';
+    }
+  });
+
+  const savedPic = localStorage.getItem("profilePic");
+if (savedPic) {
+  const userImage = document.querySelector(".user-image");
+  if (userImage) {
+    userImage.src = savedPic;
+  }
+}
+
+  window.addEventListener('DOMContentLoaded', loadArchivedClasses);
+</script>
+
+</body>
+</html>
