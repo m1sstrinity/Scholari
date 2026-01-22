@@ -1,3 +1,5 @@
+Scholari: A Web-Based Academic Management System for Enhanced Productivity and Collaboration
+
 **Capstone Project | BS Information Technology**
 
 ## 📌 Project Overview
